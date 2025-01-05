@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
+
+<head>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+    <title>Statistik</title>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/header :: header('statistics')}"></div>
+
+<div class="container mt-5">
+
+    <h1 class="text-center w-100 my-5"
+        th:text="${dueCards.isEmpty() ? 'Heute keine Karten mehr fällig 🎉' : dueCards.size() + ' Karten fällig'}"></h1>
+
+    <div class="d-flex">
+        <div id="dueCardsChart" style="width: 50%;height:400px;min-width:500px"></div>
+
+        <div id="timeSpentLast30DaysChart" style="width: 50%;height:400px;min-width:500px"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+
+    <script th:inline="javascript">
+        const dueCardsChart = echarts.init(document.getElementById('dueCardsChart'));
+
+        var option = {
+            title: {
+                text: 'Anzahl Karten pro Level'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                },
+                formatter: function (params) {
+                    let xLabel;
+                    if (params[0].name !== 'Neu') {
+                        xLabel = params[0].name = 'Level ' + params[0].name;
+                    } else {
+                        xLabel = params[0].name;
+                    }
+                    let tooltipText = '<strong>' + xLabel + '</strong>' + '<br/>'; // Include the x-axis label with the prefix
+                    params.forEach(function (param) {
+                        let seriesValue = (param.value !== undefined) ? param.value : 0; // Set to 0 if null
+                        seriesValue += ' Karten'; // Add the suffix
+                        tooltipText += seriesValue + '<br/>';
+                    });
+                    return tooltipText;
+                }
+            },
+            xAxis: {
+                data: ['Neu', '1', '2', '3', '4', '5', '6'],
+                name: 'Level'
+            },
+            yAxis: {
+                name: 'Anzahl Karten',
+            },
+            series: [
+                {
+                    type: 'bar',
+                    data: [
+                        [[${cardCountByLevel.get(0)}]],
+                        [[${cardCountByLevel.get(1)}]],
+                        [[${cardCountByLevel.get(2)}]],
+                        [[${cardCountByLevel.get(3)}]],
+                        [[${cardCountByLevel.get(4)}]],
+                        [[${cardCountByLevel.get(5)}]],
+                        [[${cardCountByLevel.get(6)}]]
+                    ],
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    },
+                    color: '#b3679b'
+                }
+            ]
+        };
+
+        dueCardsChart.setOption(option);
+    </script>
+
+    <script th:inline="javascript">
+        const timeSpentLast30DaysChart = echarts.init(document.getElementById('timeSpentLast30DaysChart'));
+
+        // Specify the configuration items and data for the chart
+        option = {
+            title: {
+                text: 'Geübte Zeit pro Tag der letzten 30 Tage'
+            },
+            // TODO add tooltip with formatter
+            xAxis: {
+                type: 'time',
+                name: 'Datum',
+                axisLine: {
+                    show: true
+                },
+            },
+            yAxis: {
+                type: 'time',
+                name: 'Geübte Zeit',
+                splitLine: {
+                    show: true
+                }
+            },
+            series: [
+                {
+                    data: [[${timeSpentLast30Days}]],
+                    type: 'line',
+                    color: '#b3679b'
+                }
+            ]
+        };
+        // Display the chart using the configuration items and data just specified.
+        timeSpentLast30DaysChart.setOption(option);
+    </script>
+
+</div>
+
+<h3 class="text-center w-100 mb-4">Durchschnittliche geübte Zeit pro Tag: [[${averageTimeSpentLast30Days}]]</h3>
+
+<div class="table-responsive d-flex justify-content-center">
+    <table class="table table-striped table-bordered text-center" style="width: 500px">
+        <tr>
+            <th>Level</th>
+            <td>Neu</td>
+            <td th:each="level : ${#numbers.sequence(1, 6)}" th:text="${level}"></td>
+        </tr>
+        <tr>
+            <th>Tage bis nächste Fälligkeit</th>
+            <td>0</td>
+            <td th:each="levelInterval : ${levelIntervals}" th:text="${levelInterval}"></td>
+        </tr>
+    </table>
+</div>
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+    <title>Neue Karte</title>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/header :: header('create-card')}"></div>
+
+<div class="container">
+    <div class="row" style="height: calc(100vh - 300px);">
+        <div class="col-12 col-md-8 col-bg-6 mx-auto">
+            <form method="post" th:action="@{/cards}" th:object="${newCard}">
+                <div class="card h-100 shadow">
+                    <div class="card-body d-flex flex-column justify-content-center">
+                        <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+                            <label>
+                                <input type="text" class="form-control" placeholder="Deutsch"
+                                       th:field="*{textSideA}" autocomplete="off" autofocus>
+                            </label>
+                        </div>
+                        <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+                            <label>
+                                <input type="text" class="form-control" placeholder="Englisch"
+                                       th:field="*{textSideB}" autocomplete="off" aria-describedby="submitBtn"
+                                       autofocus>
+                            </label>
+                        </div>
+                        <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+                            <label for="subUnitId"></label><select class="form-select" id="subUnitId" name="subUnitId">
+                            <option th:each="subUnit : ${subUnits}" th:value="${subUnit.id}"
+                                    th:text="${subUnit.unit.book.name + (subUnit.unit.name != null ? ': ' + subUnit.unit.name : '') + (subUnit.name != null ? ': ' + subUnit.name : '')}"
+                                    th:selected="${subUnit.id == lastCreatedCardSubUnitId}"></option>
+
+                        </select>
+                        </div>
+                        <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+                        <button class="btn btn-primary" type="submit" id="submitBtn">Speichern ↵</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+
+</body>
+</html>

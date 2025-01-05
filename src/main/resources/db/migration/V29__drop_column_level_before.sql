@@ -1,0 +1,1 @@
+ALTER TABLE progress DROP COLUMN level_before;

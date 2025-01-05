@@ -1,0 +1,156 @@
+/* Custom styling for the cards */
+.custom-card {
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 400px; /* Adjust the max width as needed */
+    margin: 20px auto; /* Center the card horizontally */
+    font-size: 20px;
+    text-align: center;
+}
+
+/* Custom styling for the submit button */
+.custom-button {
+    background-color: #B3679B;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    width: auto; /* Adjust button width to content */
+}
+
+.alert {
+    /*max-width: 500px; !* Adjust the max width as needed *!*/
+    margin: 20px auto; /* Center the card horizontally */
+    font-size: 20px;
+    text-align: center;
+}
+
+.card {
+    /*background-color: bisque;*/
+    margin: auto;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px; /* Adjust the size of the lines */
+}
+
+.card-header-success {
+    background-color: #DDFFD9 !important;
+}
+
+.card-header-danger {
+    background-color: #ECC8AE !important;
+}
+
+.placeholder {
+    cursor: auto !important;
+}
+
+.mark, mark {
+    padding: 0 !important;
+}
+
+header {
+    background-color: #6C4B5E;
+    box-shadow: 0 6px 10px 1px rgba(26,34,42,.16);
+}
+
+.btn:hover {
+    background-color: #B3679B;
+    border-color: #B3679B;
+}
+
+.btn-outline-secondary {
+    --bs-btn-border-color: #B3679B;
+}
+
+.btn-primary {
+    background-color: #B3679B;
+    --bs-btn-border-color: #B3679B;
+    --bs-btn-active-bg: #B3679B;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+.nav-link.active {
+    color: #6C4B5E !important;
+    background-color: white !important;
+}
+
+.progress, .progress-stacked {
+    --bs-progress-border-radius: none;
+    --bs-progress-box-shadow: none;
+    --bs-progress-bar-bg: #B3679B;
+}
+
+.progress {
+    position: relative;
+    height: 1.3rem;
+}
+
+.progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+
+
+/*!* CSS HEX *!*/
+/*--nyanza: #ddffd9ff;*/
+/*--desert-sand: #ecc8aeff;*/
+/*--coral-pink: #d7907bff;*/
+/*--eggplant: #6c4b5eff;*/
+/*--sky-magenta: #b3679bff;*/
+
+/*!* CSS HSL *!*/
+/*--nyanza: hsla(114, 100%, 93%, 1);*/
+/*--desert-sand: hsla(25, 62%, 80%, 1);*/
+/*--coral-pink: hsla(14, 53%, 66%, 1);*/
+/*--eggplant: hsla(325, 18%, 36%, 1);*/
+/*--sky-magenta: hsla(319, 33%, 55%, 1);*/
+
+/*!* SCSS HEX *!*/
+/*$nyanza: #ddffd9ff;*/
+/*$desert-sand: #ecc8aeff;*/
+/*$coral-pink: #d7907bff;*/
+/*$eggplant: #6c4b5eff;*/
+/*$sky-magenta: #b3679bff;*/
+
+/*!* SCSS HSL *!*/
+/*$nyanza: hsla(114, 100%, 93%, 1);*/
+/*$desert-sand: hsla(25, 62%, 80%, 1);*/
+/*$coral-pink: hsla(14, 53%, 66%, 1);*/
+/*$eggplant: hsla(325, 18%, 36%, 1);*/
+/*$sky-magenta: hsla(319, 33%, 55%, 1);*/
+
+/*!* SCSS RGB *!*/
+/*$nyanza: rgba(221, 255, 217, 1);*/
+/*$desert-sand: rgba(236, 200, 174, 1);*/
+/*$coral-pink: rgba(215, 144, 123, 1);*/
+/*$eggplant: rgba(108, 75, 94, 1);*/
+/*$sky-magenta: rgba(179, 103, 155, 1);*/
+
+/*!* SCSS Gradient *!*/
+/*$gradient-top: linear-gradient(0deg, #ddffd9ff, #ecc8aeff, #d7907bff, #6c4b5eff, #b3679bff);*/
+/*$gradient-right: linear-gradient(90deg, #ddffd9ff, #ecc8aeff, #d7907bff, #6c4b5eff, #b3679bff);*/
+/*$gradient-bottom: linear-gradient(180deg, #ddffd9ff, #ecc8aeff, #d7907bff, #6c4b5eff, #b3679bff);*/
+/*$gradient-left: linear-gradient(270deg, #ddffd9ff, #ecc8aeff, #d7907bff, #6c4b5eff, #b3679bff);*/
+/*$gradient-top-right: linear-gradient(45deg, #ddffd9ff, #ecc8aeff, #d7907bff, #6c4b5eff, #b3679bff);*/
+/*$gradient-bottom-right: linear-gradient(135deg, #ddffd9ff, #ecc8aeff, #d7907bff, #6c4b5eff, #b3679bff);*/
+/*$gradient-top-left: linear-gradient(225deg, #ddffd9ff, #ecc8aeff, #d7907bff, #6c4b5eff, #b3679bff);*/
+/*$gradient-bottom-left: linear-gradient(315deg, #ddffd9ff, #ecc8aeff, #d7907bff, #6c4b5eff, #b3679bff);*/
+/*$gradient-radial: radial-gradient(#ddffd9ff, #ecc8aeff, #d7907bff, #6c4b5eff, #b3679bff);*/
+
+/*https://coolors.co/ddffd9-ecc8ae-d7907b-6c4b5e-b3679b*/

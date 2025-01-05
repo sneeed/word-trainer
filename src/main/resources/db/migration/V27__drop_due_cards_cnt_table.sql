@@ -1,0 +1,1 @@
+DROP TABLE due_cards_cnt;

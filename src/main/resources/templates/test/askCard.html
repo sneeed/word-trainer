@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+    <title>Test</title>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/header :: header('test')}"></div>
+
+<div th:replace="~{fragments/progressBar :: progressBar()}"></div>
+
+<!-- no due cards -->
+<div th:unless="${card}" class="container mt-5">
+    <div class="custom-card shadow">
+        <div class="h1">🥳</div>
+        Keine Karten fällig.<br>
+        Probier es morgen nochmal.
+    </div>
+</div>
+
+<!-- test card if there are due cards -->
+<div th:if="${card}" class="container">
+    <div class="row" style="height: calc(100vh - 300px);">
+        <div class="col-12 col-md-8 col-bg-6 mx-auto">
+            <div class="card h-100 shadow">
+                <div class="card-body d-flex flex-column justify-content-center">
+                    <!--                    <button class="info-button" data-bs-toggle="tooltip" data-bs-title="'Aktuell in Level: ' + ${card.level}<br>${textCardLastSeen}">ℹ</button>-->
+                    <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+                        <h5 class="card-title" th:utext="${prompt}">bellen</h5>
+                    </div>
+                    <hr/>
+                    <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+                        <form method="post" th:action="@{/test/cards/check}" th:object="${solveAttempt}">
+                            <input type="hidden" name="formToken" th:value="${formToken}">
+                            <input type="hidden" id="cardId" name="cardId" th:value="${card.id}">
+                            <div class="input-group mb-3">
+                                <label>
+                                    <input type="text" class="form-control" placeholder="Übersetzung eingeben..."
+                                           th:field="*{userInput}" autocomplete="off" aria-describedby="submitBtn"
+                                           autofocus>
+                                </label>
+                                <button class="btn btn-primary" type="submit" id="submitBtn">Abschicken ↵</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
+
+<th:block th:unless="${card}">
+    <!-- Play sound if answer was correct -->
+    <audio id="audioPlayer" style="display: none;">
+        <source src="/sounds/smb_stage_clear.wav" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const audioPlayer = document.getElementById('audioPlayer');
+        audioPlayer.play();
+        /*]]>*/
+    </script>
+
+    <script th:inline="javascript">
+        const defaults = {
+            spread: 360,
+            ticks: 100,
+            gravity: 0,
+            decay: 0.94,
+            startVelocity: 30,
+            shapes: ["heart"],
+            colors: ["FFC0CB", "FF69B4", "FF1493", "C71585"],
+        };
+
+        confetti({
+            ...defaults,
+            particleCount: 50,
+            scalar: 2,
+        });
+
+        confetti({
+            ...defaults,
+            particleCount: 25,
+            scalar: 3,
+        });
+
+        confetti({
+            ...defaults,
+            particleCount: 10,
+            scalar: 4,
+        });
+    </script>
+</th:block>
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+
+</body>
+</html>

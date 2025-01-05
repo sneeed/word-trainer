@@ -1,0 +1,139 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      lang="de">
+<header th:fragment="header(activePage)" class="p-3 border-bottom">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+            </a>
+
+            <ul class="nav nav-pills col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li>
+                    <a th:href="@{/test/cards/get}" class="nav-link"
+                       th:classappend="${activePage == 'test'} ? 'active' : ''">Testen</a>
+                </li>
+                <li>
+                    <a class="nav-link" th:href="@{/statistics}"
+                       th:classappend="${activePage == 'statistics'} ? 'active' : ''">Statistik</a>
+                </li>
+                <!--                <li>-->
+                <!--                    <a th:href="@{/cards/create}" class="nav-link"-->
+                <!--                       th:classappend="${activePage == 'create-card'} ? 'active' : ''">Neue Karte</a>-->
+                <!--                </li>-->
+                <li>
+                    <button class="nav-link" data-bs-target="#feedbackModal" data-bs-toggle="modal" type="button">
+                        Problem melden
+                    </button>
+                </li>
+            </ul>
+
+            <div class="dropdown text-end">
+                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="/images/amy-profile-pic.jpg" alt="profile-pic" width="32" height="32"
+                         class="rounded-circle">
+                </a>
+                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                    <li><span class="dropdown-item text-muted">User: <span
+                            sec:authentication="name">Username</span></span></li>
+                    <!--                    <li sec:authorize="hasAnyAuthority('ADMIN', 'TEACHER')"><a class="dropdown-item"-->
+                    <!--                                                                               href="/cards/approve-cards">Karten-->
+                    <!--                        kontrollieren</a></li>-->
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="/logout">Abmelden</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="feedbackModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="feedbackForm" method="post" th:action="@{/feedback}" th:object="${feedback}">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Problem melden 🤯</h5>
+                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Beschreibe das Problem kurz. Alle Infos, die du auf dem Bildschirm siehst (z.B. was du
+                            eingegeben hast, die Fehleranzeige usw.) werden automatisch mitgesendet.</p>
+                        <div class="form-group row">
+                            <label class="col-4"></label>
+                            <div class="col-8">
+                                <input class="form-control" id="username" name="username"
+                                       th:value="${#authentication.principal.getUsername()}"
+                                       type="hidden">
+                                <input class="form-control" id="cardId" name="cardId" th:unless="${card == null}"
+                                       th:value="${card.id}"
+                                       type="hidden">
+                                <input class="form-control" id="prompt" name="prompt" th:value="${prompt}"
+                                       type="hidden">
+                                <input class="form-control" id="diff" name="diff" th:value="${diff}" type="hidden">
+                                <input class="form-control" id="isCorrect" name="isCorrect"
+                                       th:value="(${isCorrect})" type="hidden">
+                                <input class="form-control" hidden
+                                       id="timestamp" name="timestamp"
+                                       th:value="${#dates.format(#dates.createNow(),'dd.MM.YYYY, HH:mm')}"
+                                       type="hidden">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <textarea aria-describedby="issueDescriptionHelpBlock" class="form-control" cols="40"
+                                          aria-label="Issue description" id="issue-description" name="issueDescription"
+                                          required
+                                          rows="5"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Abbrechen</button>
+                        <button class="btn btn-primary" type="submit" value="Senden">Senden</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        // focus on issue description when modal is shown
+        const feedbackModal = document.getElementById('feedbackModal')
+        const issueDescription = document.getElementById('issue-description')
+
+        feedbackModal.addEventListener('shown.bs.modal', () => {
+            issueDescription.focus()
+        })
+
+        // close modal on submit
+        document.getElementById('feedbackForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const feedbackModal = document.getElementById('feedbackModal');
+            const bootstrapModal = bootstrap.Modal.getInstance(feedbackModal);
+            bootstrapModal.hide();
+
+            // Serialize the form data
+            const formData = new FormData(e.target);
+
+            // Send the AJAX request
+            fetch('/feedback', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Feedback sent successfully');
+                    } else {
+                        console.error('Error:', response.statusText);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+</header>
