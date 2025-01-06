@@ -3,9 +3,12 @@
 This is a simple vocabulary trainer. It uses publicly available vocabulary lists of Bavarian school books.
 I wrote the app to practice my Spring Boot and Thymeleaf skills.
 It was successfully used by my daughter in grade 6 before too many bugs and feature requests collided with too little spare time.
+Currently deployed on Heroku: https://word-trainer-test-3b93bf2b34e4.herokuapp.com/
 
 **user credentials:**
  - username: user, password: user
+ - username: teacher, password: teacher
+ - username: admin, password: admin
 
 **cool features:**
 - periodically creates AI-generated English audio for words/sentences (and updates these audios if cards are changed)
