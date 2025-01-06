@@ -4,6 +4,9 @@ This is a simple vocabulary trainer. It uses publicly available vocabulary lists
 I wrote the app to practice my Spring Boot and Thymeleaf skills.
 It was successfully used by my daughter in grade 6 before too many bugs and feature requests collided with too little spare time.
 
+**user credentials:**
+ - username: user, password: user
+
 **cool features:**
 - periodically creates AI-generated English audio for words/sentences (and updates these audios if cards are changed)
 - accepts (manually defined) synonyms/alternative spellings
