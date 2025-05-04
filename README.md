@@ -4,6 +4,7 @@ Ein Vokabeltrainer zur Unterstützung beim schulischen Englischlernen – mit AI
 Aktuell produktiv im Einsatz, ursprünglich entwickelt zur Unterstützung meiner Tochter in der 6. Klasse.
 
 🔗 **Live-Demo:** [https://word-trainer-test-3b93bf2b34e4.herokuapp.com/](https://word-trainer-test-3b93bf2b34e4.herokuapp.com/) (*benötigt beim ersten Starten des Dynos ca. 30 Sekunden zum Laden*)
+
 👤 **Testzugänge:** (*Funktionen der Rollen unterscheiden sich momentan noch nicht*)
 - `user` / `user`  
 - `teacher` / `teacher`  
